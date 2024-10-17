@@ -14,10 +14,14 @@
         ELT.api.participantIncentives(participantId, function (result) {
             console.log(result);
             result.forEach(function (incentive) {
-                $incentivesBody.append("    \"" + incentive.incentiveID + "\": {<br/>"
+				var body = "    \"" + incentive.incentiveID + "\": {<br/>"
                      + "        \"incentiveText\": \"" + incentive.description + "\",<br/>"
-                     + "        \"incentiveSoundList\": [\"ExampleSound.ogg\"]<br/>"
-                     + "    },<br/>")
+				if (incentive.incentiveImageURL) {
+					body += "        \"incentiveIcon\": \"" + incentive.incentiveImageURL + "\",<br/>"
+				}
+				body += "        \"incentiveSoundList\": [\"ExampleSound.ogg\"]<br/>"
+                     + "    },<br/>" 
+                $incentivesBody.append(body)
             });
         });
     });

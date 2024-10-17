@@ -8,6 +8,7 @@
 	// Structure placeholders
     const $donation = $('#donation');
     const $participantName = $('#participant-name');
+    const $icon = $('#icon');
     const $trackingContainer = $('#tracking-container');
     const $header = $('#header');
     const $donationConjunction = $('#donation-conjunction');
@@ -41,7 +42,6 @@
                 ELT.api.participantDonations(
                     result.participantID, 
                     function (results) {
-                        console.log(results);
                         if (results.length > 0) {
                             checkForNewDonationsOnSuccess(results.slice(0,1));
                             updateDonation();
@@ -89,6 +89,7 @@
             let donationText;
             let participant;
             let soundList;
+			let icon;
             const curDonation = $newDonations.pop();
 
             if (curDonation) {
@@ -102,8 +103,10 @@
                 if (incentive) {
                     soundList = incentive.incentiveSoundList;
                     incentiveText = incentive.incentiveText;
+					icon = incentive.incentiveIcon;
                 } else {
                     soundList = ELT.settings.soundList;
+					icon = "";
                 }
 
                 if (incentiveText) {
@@ -117,6 +120,7 @@
                 donationText = 'No donations';
             }
 
+			$icon.attr("src",`${icon}`);
             $participantName.html(participant);
             $donation.html(donationText);
 
